@@ -74,7 +74,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post=Post::find($id);
+        return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -86,8 +87,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the data
+            $this->validate($request, array(
+                'title' => 'required|max:255',
+                'body'  => 'required'
+            ));
+
+        // Save the data to the database
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        // set flash data with success message
+        Session::flash('success', 'Le post a bien ete mis à jour.');
+        // redirect with flash data to posts.show
+        return redirect()->route('posts.show', $post->id);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -97,6 +113,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post=Post::find($id);
+        $post->delete();
+        Session::flash('success', 'Le post a bien ete supprimé.');
+
+        return redirect()->route('posts.index');
     }
 }

@@ -22,7 +22,14 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6"><a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-primary btn-block">Editer</a></div>
-                    <div class="col-sm-6"><a href="{{route('posts.destroy',['id'=>$post->id])}}" class="btn btn-danger btn-block">Supprimer</a></div>
+                    <div class="col-sm-6">
+                        <form action="{{route('posts.destroy',['id'=>$post->id])}}" method="post">
+
+                            <input type="hidden" name="_method" value="delete" />
+                            <input type="hidden" value="{{ Session::token() }}" name="_token">
+                            <input type="submit" value="Supprimer" class="btn btn-danger btn-block">
+
+                        </form>
                 </div>
             </div>
         </div>
