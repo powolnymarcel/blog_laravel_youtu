@@ -14,29 +14,14 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="post">
-                <h3>Post titre</h3>
-                <p>Intro Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi at dolor labore nisi odit quo sint vel, voluptatem voluptates? Assumenda consequuntur, est fugit itaque provident quam reiciendis sint temporibus!</p>
-                <a href="#" class="btn btn-primary">Lire</a>
-            </div>
-            <hr>
-            <div class="post">
-                <h3>Post titre</h3>
-                <p>Intro Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi at dolor labore nisi odit quo sint vel, voluptatem voluptates? Assumenda consequuntur, est fugit itaque provident quam reiciendis sint temporibus!</p>
-                <a href="#" class="btn btn-primary">Lire</a>
-            </div>
-            <hr>
-            <div class="post">
-                <h3>Post titre</h3>
-                <p>Intro Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi at dolor labore nisi odit quo sint vel, voluptatem voluptates? Assumenda consequuntur, est fugit itaque provident quam reiciendis sint temporibus!</p>
-                <a href="#" class="btn btn-primary">Lire</a>
-            </div>
-            <hr>
-            <div class="post">
-                <h3>Post titre</h3>
-                <p>Intro Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi at dolor labore nisi odit quo sint vel, voluptatem voluptates? Assumenda consequuntur, est fugit itaque provident quam reiciendis sint temporibus!</p>
-                <a href="#" class="btn btn-primary">Lire</a>
-            </div>
+            @foreach($posts as $post)
+                <div class="post">
+                    <h3>{{$post->title}}</h3>
+                    <p>{{substr($post->body,0,300)}} {{strlen($post->body)>300 ? "..." : "" }}</p>
+                    <a href="#" class="btn btn-primary">Lire</a>
+                </div>
+                <hr>
+            @endforeach
 
         </div>
         <div class="col-md-3 col-md-offset-1">

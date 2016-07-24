@@ -13,7 +13,12 @@
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{$post->title}}">
             </div>
-            <div class="form-group">
+                <div class="form-group">
+                    <label for="slug">slug</label>
+                    <input type="text" name="slug" id="slug" class="form-control" value="{{$post->slug}}">
+                </div>
+
+                <div class="form-group">
                 <label for="body">Message</label>
                 <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{$post->body}}</textarea>
             </div>

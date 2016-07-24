@@ -13,14 +13,18 @@
 
             <div class="form-group">
                 <label for="title">Titre</label>
-                <input type="text" name="title" id="title" class="form-control">
+                <input type="text" name="title" id="title" class="form-control" value="{{Request::old('title')}}" >
             </div>
             <div class="form-group">
                 <label for="body">Message</label>
-                <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{Request::old('body')}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="slug">Slug</label>
+                <input type="text" name="slug" id="slug" class="form-control" value="{{Request::old('slug')}}">
             </div>
             <input type="hidden" value="{{ Session::token() }}" name="_token">
-            <input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary">
+            <input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary"  >
 
         </form>
     </div>

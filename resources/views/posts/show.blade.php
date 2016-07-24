@@ -19,6 +19,10 @@
                     <dt>Mis à jour le:</dt>
                     <dd>{{date('j M, Y H:i',strtotime($post->updated_at))}}</dd>
                 </dl>
+                <dl class="dl-horizontal">
+                    <dt>Slug:</dt>
+                    <dd><a href="{{(url($post->slug))}}">{{($post->slug)}}</a></dd>
+                </dl>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6"><a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-primary btn-block">Editer</a></div>
@@ -32,7 +36,16 @@
                         </form>
                 </div>
             </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <a href="{{route('posts.index')}}" class="btn btn-block btn-lg btn-default"> << Voir les autres posts</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
+
 
     @endsection
