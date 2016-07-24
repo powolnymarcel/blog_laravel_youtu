@@ -27,6 +27,8 @@ class PagesController extends Controller{
 
     }
 
+   
+
 
 
 }
