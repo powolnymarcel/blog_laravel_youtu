@@ -16,6 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{Request::is('/') ? "active": ""}}"><a href="{{route('accueil')}}">Acceuil </a></li>
+                <li class="{{Request::is('blog') ? "active": ""}}"><a href="{{route('blog.list')}}">Blog </a></li>
                 <li class="{{Request::is('a-propos') ? "active": ""}}"><a href="{{route('a-propos')}}">A propos</a></li>
                 <li class="{{Request::is('contact') ? "active": ""}}"><a href="{{route('contact')}}">Contact</a></li>
 

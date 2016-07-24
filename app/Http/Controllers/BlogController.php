@@ -15,4 +15,10 @@ class BlogController extends Controller
         
         return view('blog.single')->withPost($post);
     }
+
+    public function getList(){
+        $posts = Post::orderBy('created_at','DESC')->paginate(5);
+
+        return view('blog.list')->withPosts($posts);  
+    }
 }
