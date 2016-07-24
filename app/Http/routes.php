@@ -12,3 +12,5 @@ Route::get('/', [
     'uses'=>'PagesController@getIndex',
     'as'=>'accueil'
 ]);
+
+Route::resource('posts','PostController');
