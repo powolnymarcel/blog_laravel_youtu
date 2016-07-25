@@ -32,7 +32,6 @@
     <div class="well">
         @if(\Illuminate\Support\Facades\Auth::user())
         {{\Illuminate\Support\Facades\Auth::user()}}
-            <hr>
         @endif
     </div>
 @endsection

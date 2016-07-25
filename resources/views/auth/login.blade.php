@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <input type="submit" value="connexion">
                 </div>
-                <p><a href="{{ url('password/reset') }}">Forgot My Password</a>
+                <p><a href="{{ url('password/reset') }}">Mot de passe oublié</a>
                     <input type="hidden" value="{{ Session::token() }}" name="_token">
 
             </form>

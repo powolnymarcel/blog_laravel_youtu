@@ -53,6 +53,19 @@ Route::post('auth/register', [
     'uses'=>'Auth\AuthController@postRegister',
     'as'=>'register.post'
 ]);
+//**************************************************************************password reset
+Route::get('password/reset/{token?}',[
+    'uses'=>'Auth\PasswordController@showResetForm',
+    'as'=>'password.reset'
+]);
+Route::post('password/email',[
+    'uses'=>'Auth\PasswordController@sendResetLinkEmail',
+    'as'=>'password.email'
+]);
+Route::post('password/reset',[
+    'uses'=>'Auth\PasswordController@reset',
+    'as'=>'password.reset'
+]);
 
 // *******************************************************************Resources pour les POSTS
 Route::resource('posts','PostController');
