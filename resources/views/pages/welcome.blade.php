@@ -28,6 +28,13 @@
         <h2>Sidebar</h2>
         </div>
     </div>
+
+    <div class="well">
+        @if(\Illuminate\Support\Facades\Auth::user())
+        {{\Illuminate\Support\Facades\Auth::user()}}
+            <hr>
+        @endif
+    </div>
 @endsection
 @section('scripts')
 @endsection
