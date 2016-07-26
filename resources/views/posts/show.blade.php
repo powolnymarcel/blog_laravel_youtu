@@ -23,6 +23,11 @@
                     <dt>Slug:</dt>
                     <dd><a href="{{(route('blog.single',$post->slug))}}">{{($post->slug)}}</a></dd>
                 </dl>
+
+                <dl class="dl-horizontal">
+                    <dt>Categorie:</dt>
+                    <dd>{{($post->category->name)}}</dd>
+                </dl>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6"><a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-primary btn-block">Editer</a></div>

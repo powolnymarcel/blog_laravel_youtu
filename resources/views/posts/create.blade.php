@@ -23,6 +23,18 @@
                 <label for="slug">Slug</label>
                 <input type="text" name="slug" id="slug" class="form-control" value="{{Request::old('slug')}}">
             </div>
+            <div class="form-group">
+                <label for="category">Categorie</label>
+                <select name="category" id="category" class="form-control">
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                </select>
+
+            </div>
+
+
+
             <input type="hidden" value="{{ Session::token() }}" name="_token">
             <input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary"  >
         </form>

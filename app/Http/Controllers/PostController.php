@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Post;
 use Session;
@@ -34,7 +35,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create')->withCategories($categories);
     }
 
     /**
@@ -49,12 +52,14 @@ class PostController extends Controller
         $this->validate($request, array(
             'title'         => 'required|max:255',
             'slug'         => 'required|alpha_dash|max:255|unique:posts,slug',
+            'category'=>'required|integer',
             'body'          => 'required'
         ));
         // store in the database
         $post = new Post;
         $post->title = $request->title;
         $post->slug = $request->slug;
+        $post->category_id=$request->category;
         $post->body = $request->body;
         $post->save();
         Session::flash('success', 'Le psot a bien ete sauvegarde!');
@@ -82,8 +87,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
+
         $post=Post::find($id);
-        return view('posts.edit')->withPost($post);
+        return view('posts.edit')->withPost($post)->withCategories($categories);
     }
 
     /**
@@ -99,7 +106,9 @@ class PostController extends Controller
        if ($request->input('slug')== $post->slug ){
            $this->validate($request, array(
                'title' => 'required|max:255',
-               'body'  => 'required'
+               'body'  => 'required',
+               'category'=>'required|integer',
+
            ));
        }
         else{
@@ -107,13 +116,17 @@ class PostController extends Controller
             $this->validate($request, array(
                 'title' => 'required|max:255',
                 'slug'         => 'required|alpha_dash|max:255|unique:posts,slug',
-                'body'  => 'required'
+                'body'  => 'required',
+                'category'=>'required|integer',
+
             ));
         }
         // Save the data to the database
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
+        $post->category_id=$request->input('category');
+
         $post->body = $request->input('body');
         $post->save();
         // set flash data with success message

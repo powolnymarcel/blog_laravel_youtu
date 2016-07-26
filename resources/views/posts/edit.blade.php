@@ -18,6 +18,21 @@
                     <input type="text" name="slug" id="slug" class="form-control" value="{{$post->slug}}">
                 </div>
 
+
+                <div class="form-group">
+                    <label for="category">Categorie</label>
+                    <select name="category" id="category" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" @if($post->category_id == $category->id)
+                            selected
+                                    @endif>{{$category->name}}</option>
+
+
+                        @endforeach
+                    </select>
+
+                </div>
+
                 <div class="form-group">
                 <label for="body">Message</label>
                 <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{$post->body}}</textarea>
