@@ -25,7 +25,6 @@
             </div>
             <input type="hidden" value="{{ Session::token() }}" name="_token">
             <input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary"  >
-
         </form>
     </div>
 </div>
