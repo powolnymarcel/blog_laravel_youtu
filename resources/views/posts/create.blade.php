@@ -2,8 +2,10 @@
 
 @section('title','| creer un nouveau post')
 
+@section('stylesheet')
+    <link rel="stylesheet" href="{{URL::asset('css/select2.min.css')}}">
+@endsection
 @section('contenu')
-
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
@@ -30,9 +32,16 @@
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
                 </select>
-
             </div>
 
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                <select name="tags[]" id="tags" class="form-control js-example-basic-multiple" multiple="multiple">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
 
 
             <input type="hidden" value="{{ Session::token() }}" name="_token">
@@ -40,7 +49,10 @@
         </form>
     </div>
 </div>
-
-
-
-    @endsection
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{URL::asset('js/select2.min.js')}}"></script>
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2();
+    </script>
+@endsection

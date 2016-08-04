@@ -3,6 +3,10 @@
 @section('title', '| Editer le Post')
 
 
+@section('stylesheet')
+    <link rel="stylesheet" href="{{URL::asset('css/select2.min.css')}}">
+@endsection
+
 @section('contenu')
 
     <div class="row">
@@ -18,6 +22,14 @@
                     <input type="text" name="slug" id="slug" class="form-control" value="{{$post->slug}}">
                 </div>
 
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <select name="tags[]" id="tags" class="form-control js-example-basic-multiple" multiple="multiple">
+                        @foreach($tags as $tag)
+                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label for="category">Categorie</label>
@@ -26,8 +38,6 @@
                             <option value="{{$category->id}}" @if($post->category_id == $category->id)
                             selected
                                     @endif>{{$category->name}}</option>
-
-
                         @endforeach
                     </select>
 
@@ -60,3 +70,11 @@
     </div>	<!-- end of .row (form) -->
 
 @stop
+@section('scripts')
+    <script type="text/javascript" src="{{URL::asset('js/select2.min.js')}}"></script>
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2();
+        $('.js-example-basic-multiple').select2().val({!! json_encode($post->tags()->getRelatedIds()) !!}).trigger('change');
+    </script>
+@endsection
+

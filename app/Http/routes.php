@@ -69,5 +69,6 @@ Route::post('password/reset',[
 
 // *******************************************************************Resources pour les POSTS
 Route::resource('posts','PostController');
+Route::resource('tags','TagController');
 
 Route::resource('categories','CategoryController',['except'=>['create']]);

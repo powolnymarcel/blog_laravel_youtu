@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Post;
 use Session;
@@ -36,8 +37,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-
-        return view('posts.create')->withCategories($categories);
+        $tags=Tag::all();
+        return view('posts.create')->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -62,6 +63,10 @@ class PostController extends Controller
         $post->category_id=$request->category;
         $post->body = $request->body;
         $post->save();
+
+        $post->tags()->sync($request->tags,false);
+
+
         Session::flash('success', 'Le psot a bien ete sauvegarde!');
         return redirect()->route('posts.show', $post->id);
     }
@@ -88,9 +93,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
+        $tags=Tag::all();
 
         $post=Post::find($id);
-        return view('posts.edit')->withPost($post)->withCategories($categories);
+        return view('posts.edit')->withPost($post)->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -129,6 +135,14 @@ class PostController extends Controller
 
         $post->body = $request->input('body');
         $post->save();
+
+        if (isset($request->tags)) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->sync(array());
+        }
+
+        
         // set flash data with success message
         Session::flash('success', 'Le post a bien ete mis à jour.');
         // redirect with flash data to posts.show
