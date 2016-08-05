@@ -17,6 +17,11 @@ Route::get('/contact', [
     'uses'=>'PagesController@getContact',
     'as'=>'contact'
 ]);
+Route::post('/contact', [
+    'uses'=>'PagesController@postContact',
+    'as'=>'post.contact'
+]);
+
 Route::get('/a-propos', [
     'uses'=>'PagesController@getAbout',
     'as'=>'a-propos'

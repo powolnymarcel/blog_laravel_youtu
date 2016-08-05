@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h1>Contactez nous</h1>
             <hr>
-            <form action="">
+            <form action="{{route('post.contact')}}" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" class="form-control">
@@ -20,6 +20,7 @@
                     <textarea class="form-control" name="message" id="message" cols="30" rows="10">regreth</textarea>
                 </div>
 
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" value="envoyer">
                 </div>
