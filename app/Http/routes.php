@@ -72,6 +72,16 @@ Route::post('password/reset',[
     'as'=>'password.reset'
 ]);
 
+
+// Comments
+Route::post('commentaires/{post_id}', ['uses' => 'CommentairesController@store', 'as' => 'commentaires.store']);
+Route::get('commentaires/{id}/edit', ['uses' => 'CommentairesController@edit', 'as' => 'commentaires.edit']);
+Route::put('commentaires/{id}', ['uses' => 'CommentairesController@update', 'as' => 'commentaires.update']);
+Route::delete('commentaires/{id}', ['uses' => 'CommentairesController@destroy', 'as' => 'commentaires.destroy']);
+Route::get('commentaires/{id}/delete', ['uses' => 'CommentairesController@delete', 'as' => 'commentaires.delete']);
+
+
+
 // *******************************************************************Resources pour les POSTS
 Route::resource('posts','PostController');
 Route::resource('tags','TagController');

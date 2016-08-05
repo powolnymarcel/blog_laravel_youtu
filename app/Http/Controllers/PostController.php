@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Commentaire;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Post;

@@ -15,6 +15,36 @@
                     <span class="label label-default">{{ $tag->name }}</span>
                 @endforeach
             </div>
+
+            <div id="backend-comments" style="margin-top: 50px;">
+                <h3>Commentaires <small>{{ $post->commentaires()->count() }} total</small></h3>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Commentaire</th>
+                        <th width="70px"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach ($post->commentaires as $comment)
+                        <tr>
+                            <td>{{ $comment->name }}</td>
+                            <td>{{ $comment->email }}</td>
+                            <td>{{ $comment->commentaire }}</td>
+                            <td>
+                                <a href="{{ route('commentaires.edit', $comment->id) }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil">Editer</span></a>
+                                <a href="{{ route('commentaires.delete', $comment->id) }}" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash">Supprimer</span></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
         <div class="col-md-4">
