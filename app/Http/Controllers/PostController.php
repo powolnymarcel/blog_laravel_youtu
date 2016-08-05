@@ -142,7 +142,7 @@ class PostController extends Controller
             $post->tags()->sync(array());
         }
 
-        
+
         // set flash data with success message
         Session::flash('success', 'Le post a bien ete mis à jour.');
         // redirect with flash data to posts.show
@@ -159,6 +159,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post=Post::find($id);
+        $post->tags()->detach();
         $post->delete();
         Session::flash('success', 'Le post a bien ete supprimé.');
 

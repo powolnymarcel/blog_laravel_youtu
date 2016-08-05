@@ -2,7 +2,7 @@
 
 @section('title', "| $tag->name Tag")
 
-@section('content')
+@section('contenu')
 
 	<div class="row">
 		<div class="col-md-8">
@@ -12,10 +12,15 @@
 			<a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary pull-right btn-block" style="margin-top:20px;">Edit</a>
 		</div>
 		<div class="col-md-2">
-			{{ Form::open(['route' => ['tags.destroy', $tag->id], 'method' => 'DELETE']) }}
-				{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-block', 'style' => 'margin-top:20px;']) }}
-			{{ Form::close() }}
-		</div>
+
+
+			<form action="{{route('tags.destroy',['id'=>$tag->id])}}" method="post">
+
+				<input type="hidden" name="_method" value="delete" />
+				<input type="hidden" value="{{ Session::token() }}" name="_token">
+				<input type="submit" value="Supprimer" class="btn btn-danger btn-block">
+
+			</form>		</div>
 	</div>
 
 	<div class="row">

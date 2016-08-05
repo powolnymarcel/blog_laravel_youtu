@@ -1,15 +1,22 @@
 @extends('main')
 
-@section('title', "| Edit Tag")
+@section('title', "| Editer Tag")
 
-@section('content')
+@section('contenu')
 	
-	{{ Form::model($tag, ['route' => ['tags.update', $tag->id], 'method' => "PUT"]) }}
-		
-		{{ Form::label('name', "Title:") }}
-		{{ Form::text('name', null, ['class' => 'form-control']) }}
 
-		{{ Form::submit('Save Changes', ['class' => 'btn btn-success', 'style' => 'margin-top:20px;']) }}
-	{{ Form::close() }}
+
+	<form action="{{route('tags.update',['id'=>$tag->id])}}" method="post">
+
+			<div class="form-group">
+				<label for="name">Titre</label>
+				<input type="text" name="name" id="name" class="form-control" value="{{$tag->name}}">
+			</div>
+
+			<input type="hidden" value="{{ Session::token() }}" name="_token">
+			<input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary">
+		<input type="hidden" name="_method" value="put" />
+
+	</form>
 
 @endsection
