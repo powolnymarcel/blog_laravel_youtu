@@ -4,6 +4,8 @@
 
 @section('stylesheet')
     <link rel="stylesheet" href="{{URL::asset('css/select2.min.css')}}">
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({ selector:'textarea' });</script>
 @endsection
 @section('contenu')
 

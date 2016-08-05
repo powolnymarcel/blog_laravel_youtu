@@ -5,7 +5,14 @@
 
 @section('stylesheet')
     <link rel="stylesheet" href="{{URL::asset('css/select2.min.css')}}">
-@endsection
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'link code',
+            menubar: false
+        });
+    </script>@endsection
 
 @section('contenu')
 
