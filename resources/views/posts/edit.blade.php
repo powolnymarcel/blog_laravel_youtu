@@ -17,17 +17,14 @@
 @section('contenu')
 
     <div class="row">
-        <form action="{{route('posts.update',['id'=>$post->id])}}" method="post">
+        <form action="{{route('posts.update',['id'=>$post->id])}}" method="post" enctype="multipart/form-data" >
             <div class="col-md-8">
 
             <div class="form-group">
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" class="form-control" value="{{$post->title}}">
             </div>
-                <div class="form-group">
-                    <label for="slug">slug</label>
-                    <input type="text" name="slug" id="slug" class="form-control" value="{{$post->slug}}">
-                </div>
+
 
                 <div class="form-group">
                     <label for="tags">Tags</label>
@@ -54,7 +51,17 @@
                 <label for="body">Message</label>
                 <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{$post->body}}</textarea>
             </div>
-            <input type="hidden" value="{{ Session::token() }}" name="_token">
+                <div class="form-group">
+                    <label for="image">Image actuelle</label>
+                    <img src="{{asset('/images/' . $post->image_miniature)}}" width="200" height="100" />
+
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Modifier l'image</label>
+                    <input type="file" accept="image/*" name="image" id="image">
+                </div>
+                <input type="hidden" value="{{ Session::token() }}" name="_token">
             <input type="submit" value="envoyer" class="btn btn-lg btn-block btn-primary">
             </div>
             <div class="col-md-4">

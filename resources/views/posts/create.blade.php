@@ -13,7 +13,7 @@
     <div class="col-md-8 col-md-offset-2">
         <h1>Creer un nouveau post</h1>
         <hr>
-        <form action="{{route('posts.store')}}" method="POST">
+        <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data" >
 
             <div class="form-group">
                 <label for="title">Titre</label>
@@ -23,10 +23,7 @@
                 <label for="body">Message</label>
                 <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{Request::old('body')}}</textarea>
             </div>
-            <div class="form-group">
-                <label for="slug">Slug</label>
-                <input type="text" name="slug" id="slug" class="form-control" value="{{Request::old('slug')}}">
-            </div>
+
             <div class="form-group">
                 <label for="category">Categorie</label>
                 <select name="category" id="category" class="form-control">
@@ -43,6 +40,10 @@
                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" accept="image/*" name="image" id="image">
             </div>
 
 

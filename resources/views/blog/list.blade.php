@@ -15,6 +15,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h2>{{ $post->title }}</h2>
+                <img src="{{asset('/images/' . $post->image_miniature)}}" width="200" height="100" />
                 <h5>Publié le: {{ date('j M, Y', strtotime($post->created_at)) }}</h5>
 
                 <p>{{ substr(strip_tags($post->body), 0, 250) }}{{ strlen(strip_tags($post->body)) > 250 ? '...' : "" }}</p>

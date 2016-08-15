@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use Session;
 use App\Http\Requests;
+use Purifier;
+use Image;
 
 class PostController extends Controller
 {
@@ -53,19 +55,37 @@ class PostController extends Controller
         // validate the data
         $this->validate($request, array(
             'title'         => 'required|max:255',
-            'slug'         => 'required|alpha_dash|max:255|unique:posts,slug',
             'category'=>'required|integer',
             'body'          => 'required'
         ));
         // store in the database
         $post = new Post;
         $post->title = $request->title;
-        $post->slug = $request->slug;
+        $post->slug = str_slug($request->title, '-');
         $post->category_id=$request->category;
-        $post->body = $request->body;
-        $post->save();
+        $post->body = Purifier::clean($request->body);
 
-        $post->tags()->sync($request->tags,false);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            $post->image = $filename;
+
+            $miniature = $request->file('image');
+            $filename = time() . '_min.' . $miniature->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($miniature)->resize(200, 100)->save($location);
+            $post->image_miniature = $filename;
+        }
+
+        if($post->save()){
+            $post->tags()->sync($request->tags,false);
+        }
+       else{
+           Session::flash('success', 'Le psot a bien ete sauvegarde!');
+       }
+
 
 
         Session::flash('success', 'Le psot a bien ete sauvegarde!');
@@ -110,7 +130,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post=Post::find($id);
-       if ($request->input('slug')== $post->slug ){
+       if ($request->input('title')== str_slug($post->slug,'-') ){
            $this->validate($request, array(
                'title' => 'required|max:255',
                'body'  => 'required',
@@ -122,7 +142,6 @@ class PostController extends Controller
         // Validate the data
             $this->validate($request, array(
                 'title' => 'required|max:255',
-                'slug'         => 'required|alpha_dash|max:255|unique:posts,slug',
                 'body'  => 'required',
                 'category'=>'required|integer',
 
@@ -131,10 +150,22 @@ class PostController extends Controller
         // Save the data to the database
         $post = Post::find($id);
         $post->title = $request->input('title');
-        $post->slug = $request->input('slug');
+        $post->slug = str_slug($request->input('title'), '-');
         $post->category_id=$request->input('category');
+        $post->body = Purifier::clean($request->input('body'));
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($image)->resize(800, 400)->save($location);
+            $post->image = $filename;
 
-        $post->body = $request->input('body');
+            $miniature = $request->file('image');
+            $filename = time() . '_min.' . $miniature->getClientOriginalExtension();
+            $location = public_path('images/' . $filename);
+            Image::make($miniature)->resize(200, 100)->save($location);
+            $post->image_miniature = $filename;
+        }
         $post->save();
 
         if (isset($request->tags)) {
