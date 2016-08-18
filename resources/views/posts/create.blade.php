@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{URL::asset('css/select2.min.css')}}">
     <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
         <script>tinymce.init({ selector:'textarea' });</script>
+    <link rel="stylesheet" href="{{URL::asset('js/slim/slim.min.css')}}">
+
+    <script src="{{URL::asset('js/slim/slim.kickstart.min.js')}}"></script>
 @endsection
 @section('contenu')
 

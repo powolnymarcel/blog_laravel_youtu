@@ -7,6 +7,7 @@ use App\Commentaire;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Storage;
 use Session;
 use App\Http\Requests;
 use Purifier;
@@ -56,7 +57,8 @@ class PostController extends Controller
         $this->validate($request, array(
             'title'         => 'required|max:255',
             'category'=>'required|integer',
-            'body'          => 'required'
+            'body'          => 'required',
+            'tags'=>'required'
         ));
         // store in the database
         $post = new Post;
@@ -72,11 +74,11 @@ class PostController extends Controller
             Image::make($image)->resize(800, 400)->save($location);
             $post->image = $filename;
 
-            $miniature = $request->file('image');
-            $filename = time() . '_min.' . $miniature->getClientOriginalExtension();
-            $location = public_path('images/' . $filename);
-            Image::make($miniature)->resize(200, 100)->save($location);
-            $post->image_miniature = $filename;
+           $miniature = $request->file('image');
+           $filename = time() . '_min.' . $miniature->getClientOriginalExtension();
+           $location = public_path('images/' . $filename);
+           Image::make($miniature)->resize(200, 100)->save($location);
+           $post->image_miniature = $filename;
         }
 
         if($post->save()){
@@ -158,13 +160,18 @@ class PostController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('images/' . $filename);
             Image::make($image)->resize(800, 400)->save($location);
+            $vieux= $post->image;
             $post->image = $filename;
+            Storage::delete($vieux);
+
 
             $miniature = $request->file('image');
             $filename = time() . '_min.' . $miniature->getClientOriginalExtension();
             $location = public_path('images/' . $filename);
             Image::make($miniature)->resize(200, 100)->save($location);
+            $vieux= $post->image_miniature;
             $post->image_miniature = $filename;
+            Storage::delete($vieux);
         }
         $post->save();
 
@@ -192,6 +199,8 @@ class PostController extends Controller
     {
         $post=Post::find($id);
         $post->tags()->detach();
+        Storage::delete($post->image);
+        Storage::delete($post->image_miniature);
         $post->delete();
         Session::flash('success', 'Le post a bien ete supprimé.');
 
